@@ -1,0 +1,71 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# VS Code (commented out by default - uncomment if you don't want to share launch configs)
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+/coverage/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# ======================================================
+# AI MODEL FILES — DO NOT COMMIT (can be several GBs)
+# ======================================================
+*.gguf
+*.bin
+*.safetensors
+*.ot
+
+# Google services config (add if you ever integrate Firebase)
+google-services.json
+GoogleService-Info.plist
+
+# Environment / secrets
+.env
+.env.local
+*.key
+
+# Native splash generated files
+# flutter_native_splash.yaml generates files inside android/ios automatically
+# The yaml config itself is fine to commit (it's just configuration)
+
+# Cocoapods
+ios/Pods/
+ios/.symlinks/
+macos/Pods/
+macos/.symlinks/

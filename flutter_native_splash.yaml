@@ -1,0 +1,7 @@
+flutter_native_splash:
+  color: "#F8FAFC" # Matches our light theme background
+  # image: assets/logo.png # (Uncomment and add a logo path when you have one)
+  android_12:
+    color: "#F8FAFC"
+  android: true
+  ios: true
