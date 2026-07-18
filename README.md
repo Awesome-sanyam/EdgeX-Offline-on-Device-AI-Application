@@ -1,0 +1,1 @@
+# Loc.ai-Offline-on-Device-AI-Application
