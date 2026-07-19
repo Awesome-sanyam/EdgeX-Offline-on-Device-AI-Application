@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import '../../core/theme.dart';
 
 class VisionScreen extends StatelessWidget {
   const VisionScreen({super.key});
@@ -21,7 +22,7 @@ class VisionScreen extends StatelessWidget {
               style: TextStyle(
                 fontWeight: FontWeight.w900,
                 fontSize: 32,
-                color: Color(0xFF0F172A),
+                color: EdgeXTheme.textPrimary,
                 letterSpacing: -1.0,
               ),
             ),
@@ -41,7 +42,7 @@ class VisionScreen extends StatelessWidget {
                 const Text(
                   'NPU-accelerated visual intelligence — analyze images, scan documents, and understand scenes entirely on-device.',
                   style: TextStyle(
-                    color: Color(0xFF475569),
+                    color: EdgeXTheme.textSecondary,
                     fontSize: 16,
                     height: 1.6,
                     fontWeight: FontWeight.w500,
@@ -172,7 +173,7 @@ class _ComingSoonBadge extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 26,
                   fontWeight: FontWeight.w900,
-                  color: Color(0xFF0F172A),
+                  color: EdgeXTheme.textPrimary,
                   letterSpacing: -0.8,
                 ),
               ),
@@ -247,14 +248,14 @@ class _FeatureCard extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.7),
+            color: EdgeXTheme.surface.withValues(alpha: 0.65),
             border: Border.all(
-              color: Colors.white.withValues(alpha: 0.9),
+              color: Colors.white.withValues(alpha: 0.05),
               width: 1.5,
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.04),
+                color: Colors.black.withValues(alpha: 0.2),
                 blurRadius: 20,
                 offset: const Offset(0, 8),
               ),
@@ -295,7 +296,7 @@ class _FeatureCard extends StatelessWidget {
                             title,
                             style: const TextStyle(
                               fontWeight: FontWeight.w800,
-                              color: Color(0xFF0F172A),
+                              color: EdgeXTheme.textPrimary,
                               fontSize: 15,
                             ),
                           ),
@@ -306,7 +307,7 @@ class _FeatureCard extends StatelessWidget {
                             vertical: 4,
                           ),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFF1F5F9),
+                            color: Colors.white.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Text(
@@ -314,7 +315,7 @@ class _FeatureCard extends StatelessWidget {
                             style: const TextStyle(
                               fontSize: 10,
                               fontWeight: FontWeight.w800,
-                              color: Color(0xFF64748B),
+                              color: EdgeXTheme.textSecondary,
                               letterSpacing: 0.3,
                             ),
                           ),
@@ -325,7 +326,7 @@ class _FeatureCard extends StatelessWidget {
                     Text(
                       subtitle,
                       style: const TextStyle(
-                        color: Color(0xFF64748B),
+                        color: EdgeXTheme.textSecondary,
                         fontSize: 13,
                         height: 1.5,
                         fontWeight: FontWeight.w500,
@@ -350,10 +351,10 @@ class _InfoCard extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: const Color(0xFF0F172A).withValues(alpha: 0.04),
+          color: EdgeXTheme.surface,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: const Color(0xFF0F172A).withValues(alpha: 0.08),
+            color: Colors.white.withValues(alpha: 0.05),
           ),
         ),
         child: Row(
@@ -379,7 +380,7 @@ class _InfoCard extends StatelessWidget {
                     '100% Private by Design',
                     style: TextStyle(
                       fontWeight: FontWeight.w800,
-                      color: Color(0xFF0F172A),
+                      color: EdgeXTheme.textPrimary,
                       fontSize: 14,
                     ),
                   ),
@@ -387,7 +388,7 @@ class _InfoCard extends StatelessWidget {
                   Text(
                     'Vision processing will run entirely on-device. No images ever leave your phone.',
                     style: TextStyle(
-                      color: Color(0xFF64748B),
+                      color: EdgeXTheme.textSecondary,
                       fontSize: 12,
                       height: 1.5,
                       fontWeight: FontWeight.w500,

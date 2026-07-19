@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import '../../core/theme.dart';
 
 class AppShell extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
@@ -22,10 +23,15 @@ class AppShell extends StatelessWidget {
     // The old overlay caused TWO loading indicators to appear simultaneously.
     return Container(
       decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [Color(0xFFEDE9FE), Color(0xFFF5F3FF), Color(0xFFE0F2FE)],
+        color: EdgeXTheme.background,
+        // Optional: very subtle gradient mesh if you don't want solid color
+        gradient: RadialGradient(
+          center: Alignment.topRight,
+          radius: 1.5,
+          colors: [
+            Color(0xFF1E293B), // Slightly lighter top right
+            EdgeXTheme.background,
+          ],
         ),
       ),
       child: Scaffold(
@@ -33,13 +39,13 @@ class AppShell extends StatelessWidget {
         body: navigationShell,
         bottomNavigationBar: ClipRRect(
           child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 25, sigmaY: 25),
+            filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.65),
+                color: EdgeXTheme.background.withValues(alpha: 0.7),
                 border: Border(
                   top: BorderSide(
-                    color: Colors.white.withValues(alpha: 0.6),
+                    color: Colors.white.withValues(alpha: 0.05),
                     width: 1,
                   ),
                 ),
@@ -49,32 +55,22 @@ class AppShell extends StatelessWidget {
                 onDestinationSelected: (index) => _onTap(context, index),
                 backgroundColor: Colors.transparent,
                 elevation: 0,
-                indicatorColor: const Color(0xFF8B5CF6).withValues(alpha: 0.12),
-                labelBehavior:
-                    NavigationDestinationLabelBehavior.onlyShowSelected,
+                indicatorColor: EdgeXTheme.cyanAccent.withValues(alpha: 0.15),
+                labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
                 destinations: const [
                   NavigationDestination(
-                    icon: Icon(Icons.chat_bubble_outline),
-                    selectedIcon: Icon(
-                      Icons.chat_bubble,
-                      color: Color(0xFF8B5CF6),
-                    ),
+                    icon: Icon(Icons.chat_bubble_outline, color: EdgeXTheme.textSecondary),
+                    selectedIcon: Icon(Icons.chat_bubble, color: EdgeXTheme.cyanAccent),
                     label: 'Chat',
                   ),
                   NavigationDestination(
-                    icon: Icon(Icons.auto_awesome_outlined),
-                    selectedIcon: Icon(
-                      Icons.auto_awesome,
-                      color: Color(0xFF8B5CF6),
-                    ),
+                    icon: Icon(Icons.auto_awesome_outlined, color: EdgeXTheme.textSecondary),
+                    selectedIcon: Icon(Icons.auto_awesome, color: EdgeXTheme.cyanAccent),
                     label: 'Vision',
                   ),
                   NavigationDestination(
-                    icon: Icon(Icons.analytics_outlined),
-                    selectedIcon: Icon(
-                      Icons.analytics,
-                      color: Color(0xFF8B5CF6),
-                    ),
+                    icon: Icon(Icons.analytics_outlined, color: EdgeXTheme.textSecondary),
+                    selectedIcon: Icon(Icons.analytics, color: EdgeXTheme.cyanAccent),
                     label: 'System',
                   ),
                 ],

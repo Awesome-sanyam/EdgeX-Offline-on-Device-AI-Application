@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/theme.dart';
 
 class DocumentScreen extends StatelessWidget {
   const DocumentScreen({super.key});
@@ -19,11 +20,12 @@ class DocumentScreen extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(32),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: EdgeXTheme.surface,
                 borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.03),
+                    color: Colors.black.withValues(alpha: 0.2),
                     blurRadius: 10,
                     offset: const Offset(0, 4),
                   ),
@@ -37,7 +39,7 @@ class DocumentScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 32,
                       fontWeight: FontWeight.w900,
-                      color: Color(0xFF0F172A),
+                      color: EdgeXTheme.textPrimary,
                       height: 1.1,
                     ),
                   ),
@@ -66,7 +68,7 @@ class DocumentScreen extends StatelessWidget {
                       const Text(
                         'Last updated: Oct 24, 2023',
                         style: TextStyle(
-                          color: Color(0xFF64748B),
+                          color: EdgeXTheme.textSecondary,
                           fontSize: 12,
                         ),
                       ),
@@ -77,7 +79,7 @@ class DocumentScreen extends StatelessWidget {
                     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
                     style: TextStyle(
                       fontSize: 16,
-                      color: Color(0xFF334155),
+                      color: EdgeXTheme.textSecondary,
                       height: 1.6,
                     ),
                   ),
@@ -95,14 +97,15 @@ class DocumentScreen extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(24),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: EdgeXTheme.surface,
+              border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.05))),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(24),
                 topRight: Radius.circular(24),
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.05),
+                  color: Colors.black.withValues(alpha: 0.3),
                   blurRadius: 20,
                   offset: const Offset(0, -5),
                 ),
@@ -116,21 +119,21 @@ class DocumentScreen extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      border: Border.all(color: const Color(0xFFE2E8F0)),
+                      border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: const Row(
                       children: [
                         Icon(
                           Icons.auto_awesome,
-                          color: Color(0xFF8B5CF6),
+                          color: EdgeXTheme.cyanAccent,
                           size: 20,
                         ),
                         SizedBox(width: 12),
                         Expanded(
                           child: Text(
                             'This document outlines the backend architecture constraints.',
-                            style: TextStyle(color: Color(0xFF1E293B)),
+                            style: TextStyle(color: EdgeXTheme.textPrimary),
                           ),
                         ),
                       ],
@@ -144,23 +147,25 @@ class DocumentScreen extends StatelessWidget {
                     ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
-                      border: Border.all(color: const Color(0xFFE2E8F0)),
+                      border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
                     ),
                     child: const Row(
                       children: [
                         Expanded(
                           child: TextField(
+                            style: TextStyle(color: EdgeXTheme.textPrimary),
                             decoration: InputDecoration(
                               hintText: 'Ask a question...',
+                              hintStyle: TextStyle(color: EdgeXTheme.textSecondary),
                               border: InputBorder.none,
                             ),
                           ),
                         ),
                         CircleAvatar(
-                          backgroundColor: Color(0xFFF1F5F9),
+                          backgroundColor: EdgeXTheme.cyanAccent,
                           child: Icon(
                             Icons.arrow_upward,
-                            color: Color(0xFF94A3B8),
+                            color: Colors.white,
                             size: 18,
                           ),
                         ),

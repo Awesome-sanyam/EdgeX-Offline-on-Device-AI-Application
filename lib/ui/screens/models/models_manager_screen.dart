@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/state/app_providers.dart';
+import '../../core/theme.dart';
 
 class ModelsManagerScreen extends ConsumerWidget {
   const ModelsManagerScreen({super.key});
@@ -12,17 +13,17 @@ class ModelsManagerScreen extends ConsumerWidget {
     final models = ref.watch(modelsProvider);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: EdgeXTheme.background,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.close, color: Color(0xFF0F172A)),
+          icon: const Icon(Icons.close, color: EdgeXTheme.textPrimary),
           onPressed: () => context.pop(),
         ),
         title: const Text(
           'Model Manager',
-          style: TextStyle(fontWeight: FontWeight.w900, color: Color(0xFF0F172A)),
+          style: TextStyle(fontWeight: FontWeight.w900, color: EdgeXTheme.textPrimary),
         ),
       ),
       body: ListView(
@@ -33,12 +34,12 @@ class ModelsManagerScreen extends ConsumerWidget {
             children: models
                 .map(
                   (m) => ListTile(
-                    leading: const Icon(Icons.memory, color: Color(0xFF8B5CF6)),
+                    leading: const Icon(Icons.memory, color: EdgeXTheme.cyanAccent),
                     title: Text(
                       m.title,
-                      style: const TextStyle(fontWeight: FontWeight.w700),
+                      style: const TextStyle(fontWeight: FontWeight.w700, color: EdgeXTheme.textPrimary),
                     ),
-                    subtitle: Text('${m.layerType} • ${m.sizeGB} GB'),
+                    subtitle: Text('${m.layerType} • ${m.sizeGB} GB', style: const TextStyle(color: EdgeXTheme.textSecondary)),
                     trailing: m.isDownloaded
                         ? const Icon(Icons.check_circle, color: Colors.green)
                         : m.isDownloading
@@ -52,7 +53,7 @@ class ModelsManagerScreen extends ConsumerWidget {
                           )
                         : const Icon(
                             Icons.cloud_download_outlined,
-                            color: Color(0xFF8B5CF6),
+                            color: EdgeXTheme.cyanAccent,
                           ),
                   ),
                 )
@@ -65,10 +66,13 @@ class ModelsManagerScreen extends ConsumerWidget {
               SwitchListTile(
                 title: const Text(
                   'Hardware Acceleration (NPU)',
-                  style: TextStyle(fontWeight: FontWeight.w600),
+                  style: TextStyle(fontWeight: FontWeight.w600, color: EdgeXTheme.textPrimary),
                 ),
                 value: ref.watch(hardwareAccelerationProvider),
-                activeThumbColor: const Color(0xFF8B5CF6),
+                activeThumbColor: EdgeXTheme.cyanAccent,
+                activeTrackColor: EdgeXTheme.cyanAccent.withValues(alpha: 0.3),
+                inactiveThumbColor: EdgeXTheme.textSecondary,
+                inactiveTrackColor: EdgeXTheme.surfaceHighlight,
                 onChanged: (v) =>
                     ref.read(hardwareAccelerationProvider.notifier).setToggle(v),
               ),
@@ -76,10 +80,13 @@ class ModelsManagerScreen extends ConsumerWidget {
               SwitchListTile(
                 title: const Text(
                   'Aggressive RAM Unloading',
-                  style: TextStyle(fontWeight: FontWeight.w600),
+                  style: TextStyle(fontWeight: FontWeight.w600, color: EdgeXTheme.textPrimary),
                 ),
                 value: ref.watch(aggressiveRamUnloadingProvider),
-                activeThumbColor: const Color(0xFF8B5CF6),
+                activeThumbColor: EdgeXTheme.cyanAccent,
+                activeTrackColor: EdgeXTheme.cyanAccent.withValues(alpha: 0.3),
+                inactiveThumbColor: EdgeXTheme.textSecondary,
+                inactiveTrackColor: EdgeXTheme.surfaceHighlight,
                 onChanged: (v) => ref
                     .read(aggressiveRamUnloadingProvider.notifier)
                     .setToggle(v),
@@ -89,23 +96,23 @@ class ModelsManagerScreen extends ConsumerWidget {
           const SizedBox(height: 32),
           _buildSectionHeader('SYSTEM'),
           _buildGlassList(
-            children: const [
+            children: [
               ListTile(
-                leading: Icon(Icons.folder_open),
-                title: Text(
+                leading: const Icon(Icons.folder_open, color: EdgeXTheme.textPrimary),
+                title: const Text(
                   'Manage Local Storage',
-                  style: TextStyle(fontWeight: FontWeight.w600),
+                  style: TextStyle(fontWeight: FontWeight.w600, color: EdgeXTheme.textPrimary),
                 ),
-                trailing: Icon(Icons.chevron_right),
+                trailing: const Icon(Icons.chevron_right, color: EdgeXTheme.textSecondary),
               ),
-              Divider(height: 1),
+              const Divider(height: 1),
               ListTile(
-                leading: Icon(Icons.security),
-                title: Text(
+                leading: const Icon(Icons.security, color: EdgeXTheme.textPrimary),
+                title: const Text(
                   'Privacy & Telemetry',
-                  style: TextStyle(fontWeight: FontWeight.w600),
+                  style: TextStyle(fontWeight: FontWeight.w600, color: EdgeXTheme.textPrimary),
                 ),
-                trailing: Icon(Icons.chevron_right),
+                trailing: const Icon(Icons.chevron_right, color: EdgeXTheme.textSecondary),
               ),
             ],
           ),
@@ -122,7 +129,7 @@ class ModelsManagerScreen extends ConsumerWidget {
         style: const TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.w800,
-          color: Color(0xFF64748B),
+          color: EdgeXTheme.textSecondary,
           letterSpacing: 1.5,
         ),
       ),
@@ -136,8 +143,8 @@ class ModelsManagerScreen extends ConsumerWidget {
         filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.6),
-            border: Border.all(color: Colors.white),
+            color: EdgeXTheme.surface,
+            border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
           ),
           child: Column(children: children),
         ),

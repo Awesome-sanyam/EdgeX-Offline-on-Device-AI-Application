@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../../core/state/app_providers.dart';
+import '../../core/theme.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -17,14 +18,14 @@ class SettingsScreen extends ConsumerWidget {
     final hw = ref.watch(hardwareInfoProvider);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF1F5F9),
+      backgroundColor: EdgeXTheme.background,
       body: CustomScrollView(
         slivers: [
           SliverAppBar.large(
-            backgroundColor: const Color(0xFFF1F5F9),
+            backgroundColor: EdgeXTheme.background,
             elevation: 0,
             leading: IconButton(
-              icon: const Icon(Icons.close, color: Color(0xFF0F172A)),
+              icon: const Icon(Icons.close, color: EdgeXTheme.textPrimary),
               onPressed: () {
                 HapticFeedback.lightImpact();
                 context.pop();
@@ -34,7 +35,7 @@ class SettingsScreen extends ConsumerWidget {
               'Settings',
               style: TextStyle(
                 fontWeight: FontWeight.w900,
-                color: Color(0xFF0F172A),
+                color: EdgeXTheme.textPrimary,
                 letterSpacing: -1.0,
               ),
             ),
@@ -55,9 +56,7 @@ class SettingsScreen extends ConsumerWidget {
                             Container(
                               padding: const EdgeInsets.all(12),
                               decoration: BoxDecoration(
-                                color: const Color(
-                                  0xFF0F172A,
-                                ).withValues(alpha: 0.05),
+                                color: EdgeXTheme.textPrimary.withValues(alpha: 0.05),
                                 borderRadius: BorderRadius.circular(14),
                               ),
                               child: hw.isDetecting
@@ -66,12 +65,12 @@ class SettingsScreen extends ConsumerWidget {
                                       height: 24,
                                       child: CircularProgressIndicator(
                                         strokeWidth: 2,
-                                        color: Color(0xFF8B5CF6),
+                                        color: EdgeXTheme.cyanAccent,
                                       ),
                                     )
                                   : const Icon(
                                       Icons.smartphone,
-                                      color: Color(0xFF0F172A),
+                                      color: EdgeXTheme.textPrimary,
                                       size: 28,
                                     ),
                             ),
@@ -84,7 +83,7 @@ class SettingsScreen extends ConsumerWidget {
                                     hw.deviceName,
                                     style: const TextStyle(
                                       fontWeight: FontWeight.w800,
-                                      color: Color(0xFF0F172A),
+                                      color: EdgeXTheme.textPrimary,
                                       fontSize: 16,
                                     ),
                                   ),
@@ -92,7 +91,7 @@ class SettingsScreen extends ConsumerWidget {
                                   Text(
                                     '${hw.cpuArchitecture}\n${hw.totalRamGB.toStringAsFixed(1)} GB Total RAM',
                                     style: const TextStyle(
-                                      color: Color(0xFF64748B),
+                                      color: EdgeXTheme.textSecondary,
                                       fontSize: 13,
                                       height: 1.4,
                                       fontWeight: FontWeight.w600,
@@ -120,7 +119,7 @@ class SettingsScreen extends ConsumerWidget {
                               height: 1,
                               indent: 20,
                               endIndent: 20,
-                              color: Color(0xFFE2E8F0),
+                              color: Colors.white10,
                             ),
                         ],
                       );
@@ -135,7 +134,7 @@ class SettingsScreen extends ConsumerWidget {
                         Icons.memory,
                         'GPU Acceleration (Metal/Vulkan)',
                         hasNPU,
-                        const Color(0xFF8B5CF6),
+                        EdgeXTheme.cyanAccent,
                         (v) {
                           HapticFeedback.selectionClick();
                           ref
@@ -209,7 +208,7 @@ class SettingsScreen extends ConsumerWidget {
       style: const TextStyle(
         fontSize: 11,
         fontWeight: FontWeight.w800,
-        color: Color(0xFF64748B),
+        color: EdgeXTheme.textSecondary,
         letterSpacing: 1.5,
       ),
     ),
@@ -235,14 +234,14 @@ class SettingsScreen extends ConsumerWidget {
             decoration: BoxDecoration(
               color: isActive
                   ? const Color(0xFF10B981).withValues(alpha: 0.12)
-                  : const Color(0xFF8B5CF6).withValues(alpha: 0.12),
+                  : EdgeXTheme.cyanAccent.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(14),
             ),
             child: Icon(
               isActive ? Icons.check_circle : Icons.hub_outlined,
               color: isActive
                   ? const Color(0xFF10B981)
-                  : const Color(0xFF8B5CF6),
+                  : EdgeXTheme.cyanAccent,
               size: 26,
             ),
           ),
@@ -258,7 +257,7 @@ class SettingsScreen extends ConsumerWidget {
                         model.title,
                         style: const TextStyle(
                           fontWeight: FontWeight.w900,
-                          color: Color(0xFF0F172A),
+                          color: EdgeXTheme.textPrimary,
                           fontSize: 15,
                         ),
                         overflow: TextOverflow.ellipsis,
@@ -291,7 +290,7 @@ class SettingsScreen extends ConsumerWidget {
                 Text(
                   '${model.layerType} • ${model.sizeGB} GB',
                   style: const TextStyle(
-                    color: Color(0xFF8B5CF6),
+                    color: EdgeXTheme.cyanAccent,
                     fontSize: 12,
                     fontWeight: FontWeight.w800,
                   ),
@@ -300,7 +299,7 @@ class SettingsScreen extends ConsumerWidget {
                 Text(
                   model.description,
                   style: const TextStyle(
-                    color: Color(0xFF64748B),
+                    color: EdgeXTheme.textSecondary,
                     fontSize: 12,
                     height: 1.4,
                     fontWeight: FontWeight.w500,
@@ -313,11 +312,11 @@ class SettingsScreen extends ConsumerWidget {
                     borderRadius: BorderRadius.circular(6),
                     child: LinearProgressIndicator(
                       value: model.progress,
-                      backgroundColor: const Color(0xFFF1F5F9),
+                      backgroundColor: EdgeXTheme.background,
                       valueColor: AlwaysStoppedAnimation<Color>(
                         model.isPaused
                             ? const Color(0xFFF59E0B)
-                            : const Color(0xFF8B5CF6),
+                            : EdgeXTheme.cyanAccent,
                       ),
                       minHeight: 6,
                     ),
@@ -332,7 +331,7 @@ class SettingsScreen extends ConsumerWidget {
                       fontWeight: FontWeight.w800,
                       color: model.isPaused
                           ? const Color(0xFFF59E0B)
-                          : const Color(0xFF8B5CF6),
+                          : EdgeXTheme.cyanAccent,
                     ),
                   ),
                 ],
@@ -361,7 +360,7 @@ class SettingsScreen extends ConsumerWidget {
             IconButton(
               icon: const Icon(
                 Icons.radio_button_unchecked,
-                color: Color(0xFF94A3B8),
+                color: EdgeXTheme.textSecondary,
                 size: 24,
               ),
               tooltip: 'Set Active',
@@ -390,7 +389,7 @@ class SettingsScreen extends ConsumerWidget {
       return IconButton(
         icon: const Icon(
           Icons.play_circle_fill,
-          color: Color(0xFF8B5CF6),
+          color: EdgeXTheme.cyanAccent,
           size: 36,
         ),
         onPressed: () {
@@ -430,7 +429,7 @@ class SettingsScreen extends ConsumerWidget {
       return IconButton(
         icon: const Icon(
           Icons.cloud_download_outlined,
-          color: Color(0xFF8B5CF6),
+          color: EdgeXTheme.cyanAccent,
           size: 30,
         ),
         onPressed: () async {
@@ -470,13 +469,13 @@ class SettingsScreen extends ConsumerWidget {
         title,
         style: const TextStyle(
           fontWeight: FontWeight.w700,
-          color: Color(0xFF1E293B),
+          color: EdgeXTheme.textPrimary,
           fontSize: 15,
         ),
       ),
       value: value,
-      activeThumbColor: const Color(0xFF8B5CF6),
-      activeTrackColor: const Color(0xFF8B5CF6).withValues(alpha: 0.25),
+      activeThumbColor: EdgeXTheme.cyanAccent,
+      activeTrackColor: EdgeXTheme.cyanAccent.withValues(alpha: 0.25),
       onChanged: onChanged,
     );
   }
@@ -501,11 +500,11 @@ class SettingsScreen extends ConsumerWidget {
         title,
         style: const TextStyle(
           fontWeight: FontWeight.w700,
-          color: Color(0xFF1E293B),
+          color: EdgeXTheme.textPrimary,
           fontSize: 15,
         ),
       ),
-      trailing: const Icon(Icons.chevron_right, color: Color(0xFF94A3B8)),
+      trailing: const Icon(Icons.chevron_right, color: EdgeXTheme.textSecondary),
       onTap: () {
         HapticFeedback.selectionClick();
         onTap();
@@ -546,9 +545,7 @@ class SettingsScreen extends ConsumerWidget {
                           width: 40,
                           height: 4,
                           decoration: BoxDecoration(
-                            color: const Color(
-                              0xFF94A3B8,
-                            ).withValues(alpha: 0.4),
+                            color: EdgeXTheme.textSecondary.withValues(alpha: 0.4),
                             borderRadius: BorderRadius.circular(2),
                           ),
                         ),
@@ -567,21 +564,21 @@ class SettingsScreen extends ConsumerWidget {
                       _StorageBar(
                         label: 'Total App Size',
                         value: '${storage.totalAppSizeGB.toStringAsFixed(2)} GB',
-                        color: const Color(0xFF0F172A),
+                        color: EdgeXTheme.textPrimary,
                       ),
                       const SizedBox(height: 16),
                       _StorageBar(
                         label: 'Downloaded AI Models',
                         value:
                             '${storage.modelsSizeGB.toStringAsFixed(2)} GB',
-                        color: const Color(0xFF8B5CF6),
+                        color: EdgeXTheme.cyanAccent,
                       ),
                       const SizedBox(height: 16),
                       _StorageBar(
                         label: 'Temporary Cache',
                         value:
                             '${storage.cacheSizeGB.toStringAsFixed(2)} GB',
-                        color: const Color(0xFF94A3B8),
+                        color: EdgeXTheme.textSecondary,
                       ),
                       const SizedBox(height: 40),
                       SizedBox(
@@ -659,9 +656,7 @@ class SettingsScreen extends ConsumerWidget {
                           width: 40,
                           height: 4,
                           decoration: BoxDecoration(
-                            color: const Color(
-                              0xFF94A3B8,
-                            ).withValues(alpha: 0.4),
+                            color: EdgeXTheme.textSecondary.withValues(alpha: 0.4),
                             borderRadius: BorderRadius.circular(2),
                           ),
                         ),
@@ -680,7 +675,7 @@ class SettingsScreen extends ConsumerWidget {
                       const Text(
                         'EdgeX runs 100% locally. Manage what hardware metadata leaves your device.',
                         style: TextStyle(
-                          color: Color(0xFF64748B),
+                          color: EdgeXTheme.textSecondary,
                           height: 1.5,
                           fontSize: 15,
                         ),
@@ -692,10 +687,8 @@ class SettingsScreen extends ConsumerWidget {
                           style: TextStyle(fontWeight: FontWeight.w700),
                         ),
                         value: privacy['telemetry']!,
-                        activeThumbColor: const Color(0xFF8B5CF6),
-                        activeTrackColor: const Color(
-                          0xFF8B5CF6,
-                        ).withValues(alpha: 0.25),
+                        activeThumbColor: EdgeXTheme.cyanAccent,
+                        activeTrackColor: EdgeXTheme.cyanAccent.withValues(alpha: 0.25),
                         onChanged: (_) => ref
                             .read(privacySettingsProvider.notifier)
                             .toggle('telemetry'),
@@ -707,10 +700,8 @@ class SettingsScreen extends ConsumerWidget {
                           style: TextStyle(fontWeight: FontWeight.w700),
                         ),
                         value: privacy['crash_reports']!,
-                        activeThumbColor: const Color(0xFF8B5CF6),
-                        activeTrackColor: const Color(
-                          0xFF8B5CF6,
-                        ).withValues(alpha: 0.25),
+                        activeThumbColor: EdgeXTheme.cyanAccent,
+                        activeTrackColor: EdgeXTheme.cyanAccent.withValues(alpha: 0.25),
                         onChanged: (_) => ref
                             .read(privacySettingsProvider.notifier)
                             .toggle('crash_reports'),
@@ -735,7 +726,7 @@ class SettingsScreen extends ConsumerWidget {
           message,
           style: const TextStyle(fontWeight: FontWeight.w700, color: Colors.white),
         ),
-        backgroundColor: const Color(0xFF0F172A),
+        backgroundColor: EdgeXTheme.surfaceHighlight,
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         duration: const Duration(seconds: 3),
@@ -770,7 +761,7 @@ class _StorageBar extends StatelessWidget {
             label,
             style: const TextStyle(
               fontWeight: FontWeight.w700,
-              color: Color(0xFF334155),
+              color: EdgeXTheme.textSecondary,
               fontSize: 15,
             ),
           ),
@@ -780,7 +771,7 @@ class _StorageBar extends StatelessWidget {
         value,
         style: const TextStyle(
           fontWeight: FontWeight.w900,
-          color: Color(0xFF0F172A),
+          color: EdgeXTheme.textPrimary,
           fontSize: 16,
         ),
       ),
@@ -796,11 +787,14 @@ class _SettingsGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Container(
     decoration: BoxDecoration(
-      color: Colors.white,
+      color: EdgeXTheme.surface,
       borderRadius: BorderRadius.circular(24),
+      border: Border.all(
+        color: Colors.white.withValues(alpha: 0.05),
+      ),
       boxShadow: [
         BoxShadow(
-          color: Colors.black.withValues(alpha: 0.03),
+          color: Colors.black.withValues(alpha: 0.2),
           blurRadius: 12,
           offset: const Offset(0, 4),
         ),

@@ -14,6 +14,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../../core/state/app_providers.dart';
+import '../../core/theme.dart';
 
 class ChatScreen extends ConsumerStatefulWidget {
   const ChatScreen({super.key});
@@ -187,10 +188,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
           filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.white.withValues(alpha: 0.85),
+              color: EdgeXTheme.surface.withValues(alpha: 0.85),
               border: Border(
                 right: BorderSide(
-                  color: Colors.white.withValues(alpha: 0.6),
+                  color: Colors.white.withValues(alpha: 0.05),
                 ),
               ),
             ),
@@ -221,7 +222,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w900,
-                            color: Color(0xFF0F172A),
+                            color: EdgeXTheme.textPrimary,
                           ),
                         ),
                         const Spacer(),
@@ -242,7 +243,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                   ),
                   Divider(
                     height: 1,
-                    color: const Color(0xFF0F172A).withValues(alpha: 0.06),
+                    color: Colors.white.withValues(alpha: 0.06),
                   ),
                   Expanded(
                     child: sessions.isEmpty
@@ -307,7 +308,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                                   style: const TextStyle(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 14,
-                                    color: Color(0xFF1E293B),
+                                    color: EdgeXTheme.textPrimary,
                                   ),
                                 ),
                                 trailing: IconButton(
@@ -350,10 +351,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 25, sigmaY: 25),
           child: AppBar(
-            backgroundColor: Colors.white.withValues(alpha: 0.5),
+            backgroundColor: EdgeXTheme.background.withValues(alpha: 0.5),
             elevation: 0,
             leading: IconButton(
-              icon: const Icon(Icons.menu, color: Color(0xFF0F172A)),
+              icon: const Icon(Icons.menu, color: EdgeXTheme.textPrimary),
               onPressed: () => _scaffoldKey.currentState?.openDrawer(),
             ),
             title: const Text(
@@ -361,7 +362,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
               style: TextStyle(
                 fontWeight: FontWeight.w900,
                 fontSize: 24,
-                color: Color(0xFF0F172A),
+                color: EdgeXTheme.textPrimary,
                 letterSpacing: -1.0,
               ),
             ),
@@ -413,16 +414,16 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                   width: 38,
                   margin: const EdgeInsets.only(right: 16, left: 4),
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.9),
+                    color: EdgeXTheme.surface,
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: const Color(0xFFE2E8F0),
+                      color: Colors.white.withValues(alpha: 0.1),
                     ),
                   ),
                   child: const Icon(
                     Icons.settings_outlined,
                     size: 20,
-                    color: Color(0xFF64748B),
+                    color: EdgeXTheme.textSecondary,
                   ),
                 ),
               ),
@@ -458,7 +459,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
               style: const TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.w900,
-                color: Color(0xFF0F172A),
+                color: EdgeXTheme.textPrimary,
                 letterSpacing: -1.0,
               ),
             ),
@@ -468,7 +469,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 17,
-                color: Color(0xFF64748B),
+                color: EdgeXTheme.textSecondary,
                 height: 1.6,
               ),
             ),
@@ -550,16 +551,19 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                             vertical: 16,
                           ),
                           decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 0.92),
+                            color: EdgeXTheme.surface,
                             borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(24),
                               topRight: Radius.circular(24),
                               bottomLeft: Radius.circular(8),
                               bottomRight: Radius.circular(24),
                             ),
+                            border: Border.all(
+                              color: Colors.white.withValues(alpha: 0.05),
+                            ),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withValues(alpha: 0.04),
+                                color: Colors.black.withValues(alpha: 0.2),
                                 blurRadius: 20,
                                 offset: const Offset(0, 6),
                               ),
@@ -571,14 +575,14 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                             extensionSet: md.ExtensionSet.gitHubFlavored,
                             styleSheet: MarkdownStyleSheet(
                               p: const TextStyle(
-                                color: Color(0xFF1E293B),
+                                color: EdgeXTheme.textPrimary,
                                 fontSize: 16,
                                 height: 1.6,
                                 letterSpacing: -0.1,
                               ),
                               strong: const TextStyle(
                                 fontWeight: FontWeight.w800,
-                                color: Color(0xFF0F172A),
+                                color: Colors.white,
                               ),
                               codeblockDecoration: const BoxDecoration(
                                 color: Colors.transparent,
@@ -716,10 +720,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
       child: Container(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
         decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.6),
+          color: EdgeXTheme.surface.withValues(alpha: 0.6),
           border: Border(
             top: BorderSide(
-              color: Colors.white.withValues(alpha: 0.8),
+              color: Colors.white.withValues(alpha: 0.05),
               width: 1,
             ),
           ),
@@ -769,9 +773,9 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                       vertical: 6,
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: EdgeXTheme.background,
                       borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: const Color(0xFFE2E8F0)),
+                      border: Border.all(color: EdgeXTheme.surfaceHighlight),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withValues(alpha: 0.04),
@@ -794,14 +798,14 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                           style: const TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w800,
-                            color: Color(0xFF1E293B),
+                            color: EdgeXTheme.textPrimary,
                           ),
                         ),
                         const SizedBox(width: 4),
                         const Icon(
                           Icons.keyboard_arrow_down,
                           size: 13,
-                          color: Color(0xFF64748B),
+                          color: EdgeXTheme.textSecondary,
                         ),
                       ],
                     ),
@@ -818,10 +822,10 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                     vertical: 10,
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: EdgeXTheme.background,
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(
-                      color: const Color(0xFF8B5CF6).withValues(alpha: 0.3),
+                      color: EdgeXTheme.cyanAccent.withValues(alpha: 0.3),
                       width: 1.5,
                     ),
                   ),
@@ -830,7 +834,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                     children: [
                       const Icon(
                         Icons.description,
-                        color: Color(0xFF8B5CF6),
+                        color: EdgeXTheme.cyanAccent,
                         size: 16,
                       ),
                       const SizedBox(width: 10),
@@ -840,7 +844,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                           style: const TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 13,
-                            color: Color(0xFF1E293B),
+                            color: EdgeXTheme.textPrimary,
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -876,12 +880,12 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                 decoration: BoxDecoration(
                   color: voiceState.isListening
                       ? const Color(0xFFEF4444).withValues(alpha: 0.04)
-                      : Colors.white,
+                      : EdgeXTheme.background,
                   borderRadius: BorderRadius.circular(32),
                   border: Border.all(
                     color: voiceState.isListening
                         ? const Color(0xFFEF4444).withValues(alpha: 0.4)
-                        : const Color(0xFFE2E8F0),
+                        : EdgeXTheme.surfaceHighlight,
                     width: 1.5,
                   ),
                   boxShadow: [
@@ -940,7 +944,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                               const EdgeInsets.symmetric(vertical: 14),
                         ),
                         style: const TextStyle(
-                          color: Color(0xFF1E293B),
+                          color: EdgeXTheme.textPrimary,
                           fontSize: 16,
                         ),
                       ),
@@ -953,8 +957,8 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                           color: voiceState.isListening
                               ? const Color(0xFFEF4444)
                               : (canSend
-                                  ? const Color(0xFF8B5CF6)
-                                  : const Color(0xFFF1F5F9)),
+                                  ? EdgeXTheme.cyanAccent
+                                  : EdgeXTheme.surfaceHighlight),
                           shape: BoxShape.circle,
                         ),
                         child: IconButton(

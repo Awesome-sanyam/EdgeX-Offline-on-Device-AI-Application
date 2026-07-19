@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../../core/state/app_providers.dart';
+import '../../core/theme.dart';
 
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
@@ -25,7 +26,7 @@ class DashboardScreen extends ConsumerWidget {
               style: TextStyle(
                 fontWeight: FontWeight.w900,
                 fontSize: 32,
-                color: Color(0xFF0F172A),
+                color: EdgeXTheme.textPrimary,
                 letterSpacing: -1.0,
               ),
             ),
@@ -42,7 +43,7 @@ class DashboardScreen extends ConsumerWidget {
                       child: Padding(
                         padding: EdgeInsets.all(50),
                         child: CircularProgressIndicator(
-                          color: Color(0xFF8B5CF6),
+                          color: EdgeXTheme.cyanAccent,
                         ),
                       ),
                     )
@@ -52,7 +53,7 @@ class DashboardScreen extends ConsumerWidget {
                         child: Padding(
                           padding: EdgeInsets.all(50),
                           child: CircularProgressIndicator(
-                            color: Color(0xFF8B5CF6),
+                            color: EdgeXTheme.cyanAccent,
                           ),
                         ),
                       ),
@@ -85,7 +86,7 @@ class DashboardScreen extends ConsumerWidget {
       style: const TextStyle(
         fontSize: 11,
         fontWeight: FontWeight.w800,
-        color: Color(0xFF64748B),
+        color: EdgeXTheme.textSecondary,
         letterSpacing: 1.5,
       ),
     ),
@@ -126,20 +127,20 @@ class DashboardScreen extends ConsumerWidget {
                   style: const TextStyle(
                     fontSize: 28,
                     fontWeight: FontWeight.w900,
-                    color: Color(0xFF0F172A),
+                    color: EdgeXTheme.textPrimary,
                   ),
                 ),
                 Text(
                   '/ ${hw.totalRamGB.toStringAsFixed(1)} GB total',
                   style: const TextStyle(
-                    color: Color(0xFF94A3B8),
+                    color: EdgeXTheme.textSecondary,
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
                 const SizedBox(height: 20),
                 // BUG FIX: Use LayoutBuilder instead of MediaQuery * 0.4
-                _ProgressBar(value: ramPercentage, color: const Color(0xFF8B5CF6)),
+                _ProgressBar(value: ramPercentage, color: EdgeXTheme.purpleAccent),
               ],
             ),
           ),
@@ -179,7 +180,7 @@ class DashboardScreen extends ConsumerWidget {
                       style: const TextStyle(
                         fontSize: 28,
                         fontWeight: FontWeight.w900,
-                        color: Color(0xFF0F172A),
+                        color: EdgeXTheme.textPrimary,
                       ),
                     ),
                     const Padding(
@@ -187,7 +188,7 @@ class DashboardScreen extends ConsumerWidget {
                       child: Text(
                         '%',
                         style: TextStyle(
-                          color: Color(0xFF64748B),
+                          color: EdgeXTheme.textSecondary,
                           fontSize: 14,
                           fontWeight: FontWeight.w800,
                         ),
@@ -200,7 +201,7 @@ class DashboardScreen extends ConsumerWidget {
                   style: TextStyle(
                     color: telemetry.thermalTempC > 40
                         ? Colors.orange
-                        : const Color(0xFF94A3B8),
+                        : EdgeXTheme.textSecondary,
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
                   ),
@@ -225,26 +226,26 @@ class DashboardScreen extends ConsumerWidget {
       padding: const EdgeInsets.all(24),
       child: Column(
         children: [
-          _buildStatRow('DEVICE', hw.deviceName, false, const Color(0xFF0F172A)),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 16),
-            child: Divider(color: Color(0xFFE2E8F0), height: 1),
+          _buildStatRow('DEVICE', hw.deviceName, false, EdgeXTheme.textPrimary),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: Divider(color: Colors.white.withValues(alpha: 0.1), height: 1),
           ),
           _buildStatRow(
             'SILICON',
             hw.cpuArchitecture,
             false,
-            const Color(0xFF0F172A),
+            EdgeXTheme.textPrimary,
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 16),
-            child: Divider(color: Color(0xFFE2E8F0), height: 1),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: Divider(color: Colors.white.withValues(alpha: 0.1), height: 1),
           ),
           _buildStatRow(
             'PIPELINE',
             hasGPUAccel ? 'GPU Acceleration (Active)' : 'CPU Fallback',
             hasGPUAccel,
-            hasGPUAccel ? const Color(0xFF10B981) : Colors.orange,
+            hasGPUAccel ? EdgeXTheme.cyanAccent : Colors.orange,
           ),
         ],
       ),
@@ -303,7 +304,7 @@ class DashboardScreen extends ConsumerWidget {
         padding: EdgeInsets.all(8),
         child: Text(
           'No activity yet.',
-          style: TextStyle(color: Color(0xFF94A3B8)),
+          style: TextStyle(color: EdgeXTheme.textSecondary),
         ),
       );
     }
@@ -337,7 +338,7 @@ class DashboardScreen extends ConsumerWidget {
                       child: Text(
                         t.title,
                         style: const TextStyle(
-                          color: Color(0xFF0F172A),
+                          color: EdgeXTheme.textPrimary,
                           fontWeight: FontWeight.w800,
                           fontSize: 15,
                         ),
@@ -346,7 +347,7 @@ class DashboardScreen extends ConsumerWidget {
                     const Text(
                       'JUST NOW',
                       style: TextStyle(
-                        color: Color(0xFF94A3B8),
+                        color: EdgeXTheme.textSecondary,
                         fontSize: 10,
                         fontWeight: FontWeight.w800,
                         letterSpacing: 0.8,
@@ -377,14 +378,15 @@ class _GlassCard extends StatelessWidget {
         child: Container(
           padding: padding,
           decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.65),
+            color: EdgeXTheme.surface.withValues(alpha: 0.65),
+            borderRadius: BorderRadius.circular(28),
             border: Border.all(
-              color: Colors.white.withValues(alpha: 0.85),
+              color: Colors.white.withValues(alpha: 0.05),
               width: 1.5,
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.04),
+                color: Colors.black.withValues(alpha: 0.2),
                 blurRadius: 20,
                 offset: const Offset(0, 10),
               ),
@@ -414,7 +416,7 @@ class _ProgressBar extends StatelessWidget {
           height: 8,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.7),
+            color: Colors.black.withValues(alpha: 0.2),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Stack(

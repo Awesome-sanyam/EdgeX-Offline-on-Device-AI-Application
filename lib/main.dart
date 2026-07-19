@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:background_downloader/background_downloader.dart';
 import 'core/state/app_providers.dart';
 import 'ui/core/router.dart';
+import 'ui/core/theme.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,10 +27,10 @@ void main() async {
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  // Immersive status bar style
+  // Immersive status bar style for dark mode
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.dark,
+    statusBarIconBrightness: Brightness.light,
   ));
 
   runApp(const ProviderScope(child: EdgeXApp()));
@@ -43,18 +44,8 @@ class EdgeXApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'EdgeX',
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.light,
-      theme: ThemeData(
-        useMaterial3: true,
-        scaffoldBackgroundColor: Colors.transparent,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF8B5CF6),
-          brightness: Brightness.light,
-        ),
-        fontFamily: 'Inter',
-        splashFactory: NoSplash.splashFactory,
-        highlightColor: Colors.transparent,
-      ),
+      themeMode: ThemeMode.dark,
+      theme: EdgeXTheme.darkTheme,
       routerConfig: goRouter,
     );
   }
