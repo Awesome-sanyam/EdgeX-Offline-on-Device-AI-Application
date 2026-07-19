@@ -1,7 +1,23 @@
 flutter_native_splash:
-  color: "#F8FAFC" # Matches our light theme background
-  # image: assets/logo.png # (Uncomment and add a logo path when you have one)
-  android_12:
-    color: "#F8FAFC"
+  # Dark, premium background matching the app's accent palette
+  color: "#0F0F1A"
+  image: assets/images/logo.png
+  color_dark: "#0F0F1A"
+  image_dark: assets/images/logo.png
+  
+  # Ensure the logo is centered and padded properly
+  android_gravity: center
+  ios_content_mode: scaleAspectFit
+  
   android: true
   ios: true
+  web: false
+
+  android_12:
+    # Android 12+ adaptive splash with icon background
+    color: "#0F0F1A"
+    image: assets/images/logo.png
+    icon_background_color: "#1A1033"
+    color_dark: "#0F0F1A"
+    image_dark: assets/images/logo.png
+    icon_background_color_dark: "#1A1033"

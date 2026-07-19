@@ -1,4 +1,3 @@
-// lib/ui/core/widgets/glass_container.dart
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
@@ -25,26 +24,24 @@ class GlassContainer extends StatelessWidget {
     return ClipRRect(
       borderRadius: radius,
       child: BackdropFilter(
-        // Keep sigmaX and sigmaY low (under 10) to prevent GPU thermal throttling
         filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
         child: Container(
           width: width,
           height: height,
-          padding: padding ?? const EdgeInsets.all(16.0),
+          padding: padding ?? const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.05), // Very subtle white tint
+            color: Colors.white.withValues(alpha: 0.05),
             borderRadius: radius,
             border: Border.all(
-              color: Colors.white.withOpacity(0.1),
+              color: Colors.white.withValues(alpha: 0.1),
               width: 1.0,
             ),
-            // Optional: Subtle inner gradient for the glass effect
             gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Colors.white.withOpacity(0.15),
-                Colors.white.withOpacity(0.05),
+                Colors.white.withValues(alpha: 0.15),
+                Colors.white.withValues(alpha: 0.05),
               ],
             ),
           ),
