@@ -357,7 +357,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
               onPressed: () => _scaffoldKey.currentState?.openDrawer(),
             ),
             title: const Text(
-              'loc.ai',
+              'EdgeX',
               style: TextStyle(
                 fontWeight: FontWeight.w900,
                 fontSize: 24,
@@ -928,7 +928,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                         decoration: InputDecoration(
                           hintText: voiceState.isListening
                               ? 'Listening...'
-                              : 'Message loc.ai...',
+                              : 'Message EdgeX...',
                           border: InputBorder.none,
                           hintStyle: TextStyle(
                             color: voiceState.isListening

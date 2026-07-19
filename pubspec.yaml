@@ -1,5 +1,5 @@
 name: loc_ai
-description: "Loc.ai — A fully offline, on-device AI inference app. Run LLMs privately on your phone with zero cloud dependency."
+description: "EdgeX — A fully offline, on-device AI inference app. Run LLMs privately on your phone with zero cloud dependency."
 publish_to: 'none'
 
 version: 1.0.0+1
@@ -51,7 +51,7 @@ flutter_launcher_icons:
   ios: true
   image_path: "assets/images/logo.png"
   min_sdk_android: 24
-  adaptive_icon_background: "#0F0F1A"
+  adaptive_icon_background: "#0F172A"
   adaptive_icon_foreground: "assets/images/logo.png"
   web:
     generate: false

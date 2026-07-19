@@ -17,7 +17,7 @@ class AppShell extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // BUG FIX: Removed the global "loc.ai processing..." overlay pill.
+    // BUG FIX: Removed the global "EdgeX processing..." overlay pill.
     // The Chat screen's shimmer indicator is the sole canonical loading state.
     // The old overlay caused TWO loading indicators to appear simultaneously.
     return Container(

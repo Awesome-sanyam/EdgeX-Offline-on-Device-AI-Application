@@ -32,16 +32,16 @@ void main() async {
     statusBarIconBrightness: Brightness.dark,
   ));
 
-  runApp(const ProviderScope(child: LocAiApp()));
+  runApp(const ProviderScope(child: EdgeXApp()));
 }
 
-class LocAiApp extends StatelessWidget {
-  const LocAiApp({super.key});
+class EdgeXApp extends StatelessWidget {
+  const EdgeXApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'loc.ai',
+      title: 'EdgeX',
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
       theme: ThemeData(

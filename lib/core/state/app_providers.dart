@@ -80,7 +80,7 @@ class HardwareNotifier extends Notifier<DeviceHardware> {
         if (actualRamGB < 1.0) actualRamGB = 8.0;
       }
     } catch (_) {
-      dName = 'loc.ai Secure Kernel';
+      dName = 'EdgeX Secure Kernel';
     }
 
     state = DeviceHardware(
@@ -679,7 +679,7 @@ class ChatNotifier extends Notifier<List<ChatMessage>> {
       final PdfPage page = document.pages.add();
       final PdfStandardFont font = PdfStandardFont(PdfFontFamily.helvetica, 12);
 
-      String chatText = 'loc.ai Conversation Export\n\n';
+      String chatText = 'EdgeX Conversation Export\n\n';
       for (final msg in state) {
         if (msg.text.contains('⚠️') ||
             msg.text.contains('❌') ||
@@ -833,7 +833,7 @@ class ChatNotifier extends Notifier<List<ChatMessage>> {
       final List<Message> memory = [
         Message(
           Role.system,
-          'You are loc.ai. Answer clearly and concisely. Analyze provided text directly.',
+          'You are EdgeX. Answer clearly and concisely. Analyze provided text directly.',
         ),
         ...historicalMessages,
         Message(Role.user, finalPrompt),

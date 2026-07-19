@@ -555,7 +555,7 @@ class SettingsScreen extends ConsumerWidget {
                       ),
                       const SizedBox(height: 24),
                       const Text(
-                        'loc.ai Storage',
+                        'EdgeX Storage',
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w900,
@@ -678,7 +678,7 @@ class SettingsScreen extends ConsumerWidget {
                       ),
                       const SizedBox(height: 8),
                       const Text(
-                        'loc.ai runs 100% locally. Manage what hardware metadata leaves your device.',
+                        'EdgeX runs 100% locally. Manage what hardware metadata leaves your device.',
                         style: TextStyle(
                           color: Color(0xFF64748B),
                           height: 1.5,

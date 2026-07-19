@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🧠 Loc.ai — Offline On-Device AI Application
+# 🧠 EdgeX — Offline On-Device AI Application
 
 **Private. Offline. Powerful.**
 
@@ -128,8 +128,8 @@ lib/
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/Awesome-sanyam/Loc.ai-Offline-on-Device-AI-Application.git
-cd Loc.ai-Offline-on-Device-AI-Application
+git clone https://github.com/Awesome-sanyam/EdgeX-Offline-on-Device-AI-Application.git
+cd EdgeX-Offline-on-Device-AI-Application
 
 # 2. Install Flutter dependencies
 flutter pub get
