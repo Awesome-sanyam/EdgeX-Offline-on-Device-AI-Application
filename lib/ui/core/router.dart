@@ -5,6 +5,7 @@ import '../screens/dashboard/dashboard_screen.dart';
 import '../screens/chat/chat_screen.dart';
 import '../screens/vision/vision_screen.dart';
 import '../screens/settings/settings_screen.dart';
+import '../screens/document/document_screen.dart';
 
 final GlobalKey<NavigatorState> rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
 
@@ -26,6 +27,24 @@ final goRouter = GoRouter(
           );
         },
       ),
+    ),
+    GoRoute(
+      path: '/document',
+      parentNavigatorKey: rootNavigatorKey,
+      pageBuilder: (context, state) {
+        final filePath = state.extra as String? ?? '';
+        return CustomTransitionPage(
+          key: state.pageKey,
+          child: DocumentScreen(filePath: filePath),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return SlideTransition(
+              position: Tween<Offset>(begin: const Offset(0.0, 1.0), end: Offset.zero)
+                  .animate(CurvedAnimation(parent: animation, curve: Curves.easeOutCubic)),
+              child: child,
+            );
+          },
+        );
+      },
     ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) => AppShell(navigationShell: navigationShell),

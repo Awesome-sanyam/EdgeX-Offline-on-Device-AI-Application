@@ -46,6 +46,7 @@ class EdgeXApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.dark,
       theme: EdgeXTheme.darkTheme,
+      darkTheme: EdgeXTheme.darkTheme,
       routerConfig: goRouter,
     );
   }

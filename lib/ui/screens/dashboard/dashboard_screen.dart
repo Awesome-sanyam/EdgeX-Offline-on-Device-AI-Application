@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../../core/state/app_providers.dart';
+import '../../../core/state/ai_state_provider.dart';
 import '../../core/theme.dart';
 
 class DashboardScreen extends ConsumerWidget {
@@ -42,9 +43,7 @@ class DashboardScreen extends ConsumerWidget {
                     const Center(
                       child: Padding(
                         padding: EdgeInsets.all(50),
-                        child: CircularProgressIndicator(
-                          color: EdgeXTheme.cyanAccent,
-                        ),
+                        child: CircularProgressIndicator(color: EdgeXTheme.cyanAccent),
                       ),
                     )
                   else
@@ -52,18 +51,18 @@ class DashboardScreen extends ConsumerWidget {
                       loading: () => const Center(
                         child: Padding(
                           padding: EdgeInsets.all(50),
-                          child: CircularProgressIndicator(
-                            color: EdgeXTheme.cyanAccent,
-                          ),
+                          child: CircularProgressIndicator(color: EdgeXTheme.cyanAccent),
                         ),
                       ),
                       error: (err, _) => Text(
                         'Telemetry Error: $err',
                         style: const TextStyle(color: Colors.red),
                       ),
-                      data: (telemetry) =>
-                          _buildLiveHardwareGrid(telemetry, hw),
+                      data: (telemetry) => _buildLiveHardwareGrid(telemetry, hw),
                     ),
+                  const SizedBox(height: 32),
+                  _buildSectionHeader('ACTIVE AI MODEL'),
+                  _buildActiveModelCard(ref),
                   const SizedBox(height: 48),
                   _buildSectionHeader('ACTIVE ENGINE STATUS'),
                   _buildEngineStatusCard(ref, hw),
@@ -219,6 +218,85 @@ class DashboardScreen extends ConsumerWidget {
     );
   }
 
+  Widget _buildActiveModelCard(WidgetRef ref) {
+    final selectedModel = ref.watch(selectedModelProvider);
+    final aiState = ref.watch(aiStateProvider);
+    final isThinking = ref.watch(isThinkingProvider);
+    final tokensPerSec = aiState.inferenceSpeedTs;
+
+    return _GlassCard(
+      padding: const EdgeInsets.all(20),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(14),
+            decoration: BoxDecoration(
+              color: EdgeXTheme.purpleAccent.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: const Icon(Icons.auto_awesome_rounded, color: EdgeXTheme.purpleAccent, size: 24),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  selectedModel,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w800,
+                    color: EdgeXTheme.textPrimary,
+                    fontSize: 15,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Row(
+                  children: [
+                    Container(
+                      width: 7,
+                      height: 7,
+                      decoration: BoxDecoration(
+                        color: isThinking ? EdgeXTheme.cyanAccent : EdgeXTheme.emeraldAccent,
+                        shape: BoxShape.circle,
+                      ),
+                    )
+                        .animate(onPlay: (c) => c.repeat(reverse: true))
+                        .fadeIn(duration: 600.ms),
+                    const SizedBox(width: 6),
+                    Text(
+                      isThinking ? 'Generating...' : 'Ready',
+                      style: TextStyle(
+                        color: isThinking ? EdgeXTheme.cyanAccent : EdgeXTheme.emeraldAccent,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          if (isThinking && tokensPerSec > 0)
+            Column(
+              children: [
+                Text(
+                  '$tokensPerSec',
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w900,
+                    color: EdgeXTheme.cyanAccent,
+                    fontSize: 22,
+                  ),
+                ),
+                const Text('tok/s', style: TextStyle(color: EdgeXTheme.textSecondary, fontSize: 10, fontWeight: FontWeight.w700)),
+              ],
+            ).animate().fadeIn(duration: 300.ms),
+        ],
+      ),
+    );
+  }
+
   Widget _buildEngineStatusCard(WidgetRef ref, DeviceHardware hw) {
     final hasGPUAccel = ref.watch(hardwareAccelerationProvider);
 
@@ -300,65 +378,68 @@ class DashboardScreen extends ConsumerWidget {
   Widget _buildRecentTasks(WidgetRef ref) {
     final tasks = ref.watch(recentTasksProvider);
     if (tasks.isEmpty) {
-      return const Padding(
-        padding: EdgeInsets.all(8),
-        child: Text(
-          'No activity yet.',
-          style: TextStyle(color: EdgeXTheme.textSecondary),
+      return Container(
+        padding: const EdgeInsets.symmetric(vertical: 24),
+        alignment: Alignment.center,
+        child: Column(
+          children: [
+            Icon(Icons.history_rounded, size: 36, color: EdgeXTheme.textSecondary.withValues(alpha: 0.4)),
+            const SizedBox(height: 12),
+            const Text('No activity yet.', style: TextStyle(color: EdgeXTheme.textSecondary, fontWeight: FontWeight.w600)),
+          ],
         ),
       );
     }
 
     return Column(
-      children: tasks
-          .map(
-            (t) => Padding(
-              padding: const EdgeInsets.only(bottom: 12),
-              child: _GlassCard(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 16,
+      children: tasks.asMap().entries.map((entry) {
+        final t = entry.value;
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: _GlassCard(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: EdgeXTheme.purpleAccent.withValues(alpha: 0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(
+                    t.isDoc ? Icons.description_rounded : Icons.chat_bubble_rounded,
+                    color: EdgeXTheme.purpleAccent,
+                    size: 20,
+                  ),
                 ),
-                child: Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFF8B5CF6).withValues(alpha: 0.1),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Icon(
-                        t.isDoc ? Icons.description : Icons.chat_bubble,
-                        color: const Color(0xFF8B5CF6),
-                        size: 20,
-                      ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Text(
+                    t.title,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      color: EdgeXTheme.textPrimary,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 14,
                     ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: Text(
-                        t.title,
-                        style: const TextStyle(
-                          color: EdgeXTheme.textPrimary,
-                          fontWeight: FontWeight.w800,
-                          fontSize: 15,
-                        ),
-                      ),
-                    ),
-                    const Text(
-                      'JUST NOW',
-                      style: TextStyle(
-                        color: EdgeXTheme.textSecondary,
-                        fontSize: 10,
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: 0.8,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
+                const SizedBox(width: 8),
+                const Text(
+                  'JUST NOW',
+                  style: TextStyle(
+                    color: EdgeXTheme.textSecondary,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: 0.8,
+                  ),
+                ),
+              ],
             ),
-          )
-          .toList(),
+          ).animate(delay: (60 * entry.key).ms).fadeIn(duration: 300.ms),
+        );
+      }).toList(),
     );
   }
 }

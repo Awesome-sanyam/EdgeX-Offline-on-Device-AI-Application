@@ -527,10 +527,10 @@ class SettingsScreen extends ConsumerWidget {
               child: Container(
                 padding: const EdgeInsets.all(32),
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.92),
+                  color: EdgeXTheme.surface,
                   border: Border(
                     top: BorderSide(
-                      color: Colors.white.withValues(alpha: 0.5),
+                      color: Colors.white.withValues(alpha: 0.08),
                     ),
                   ),
                 ),
@@ -556,7 +556,7 @@ class SettingsScreen extends ConsumerWidget {
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w900,
-                          color: Color(0xFF0F172A),
+                          color: EdgeXTheme.textPrimary,
                           letterSpacing: -0.5,
                         ),
                       ),
@@ -638,10 +638,10 @@ class SettingsScreen extends ConsumerWidget {
               child: Container(
                 padding: const EdgeInsets.all(32),
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.92),
+                  color: EdgeXTheme.surface,
                   border: Border(
                     top: BorderSide(
-                      color: Colors.white.withValues(alpha: 0.5),
+                      color: Colors.white.withValues(alpha: 0.08),
                     ),
                   ),
                 ),
@@ -667,7 +667,7 @@ class SettingsScreen extends ConsumerWidget {
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.w900,
-                          color: Color(0xFF0F172A),
+                          color: EdgeXTheme.textPrimary,
                           letterSpacing: -0.5,
                         ),
                       ),
