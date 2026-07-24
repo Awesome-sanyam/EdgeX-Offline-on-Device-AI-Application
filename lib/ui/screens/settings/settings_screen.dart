@@ -519,7 +519,7 @@ class SettingsScreen extends ConsumerWidget {
       isScrollControlled: true,
       builder: (context) => Consumer(
         builder: (context, ref, _) {
-          final storage = ref.watch(storageProvider);
+          final storageAsync = ref.watch(storageProvider);
           return ClipRRect(
             borderRadius: const BorderRadius.vertical(top: Radius.circular(32)),
             child: BackdropFilter(
@@ -561,55 +561,64 @@ class SettingsScreen extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(height: 24),
-                      _StorageBar(
-                        label: 'Total App Size',
-                        value: '${storage.totalAppSizeGB.toStringAsFixed(2)} GB',
-                        color: EdgeXTheme.textPrimary,
-                      ),
-                      const SizedBox(height: 16),
-                      _StorageBar(
-                        label: 'Downloaded AI Models',
-                        value:
-                            '${storage.modelsSizeGB.toStringAsFixed(2)} GB',
-                        color: EdgeXTheme.cyanAccent,
-                      ),
-                      const SizedBox(height: 16),
-                      _StorageBar(
-                        label: 'Temporary Cache',
-                        value:
-                            '${storage.cacheSizeGB.toStringAsFixed(2)} GB',
-                        color: EdgeXTheme.textSecondary,
-                      ),
-                      const SizedBox(height: 40),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton.icon(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color(0xFFEF4444),
-                            foregroundColor: Colors.white,
-                            padding: const EdgeInsets.symmetric(vertical: 16),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            elevation: 0,
+                      storageAsync.when(
+                        loading: () => const Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(24),
+                            child: CircularProgressIndicator(color: EdgeXTheme.cyanAccent),
                           ),
-                          icon: const Icon(Icons.delete_sweep),
-                          label: const Text(
-                            'Clear Temporary Cache',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                        ),
+                        error: (err, stack) => const Text(
+                          'Could not calculate storage.',
+                          style: TextStyle(color: EdgeXTheme.textSecondary),
+                        ),
+                        data: (storage) => Column(
+                          children: [
+                            _StorageBar(
+                              label: 'Total App Size',
+                              value: '${storage.totalAppSizeGB.toStringAsFixed(2)} GB',
+                              color: EdgeXTheme.textPrimary,
                             ),
-                          ),
-                          onPressed: storage.cacheSizeGB > 0
-                              ? () {
-                                  HapticFeedback.heavyImpact();
-                                  ref
-                                      .read(storageProvider.notifier)
-                                      .clearCache();
-                                  _showToast(context, 'Cache Cleared');
-                                }
-                              : null,
+                            const SizedBox(height: 16),
+                            _StorageBar(
+                              label: 'Downloaded AI Models',
+                              value: '${storage.modelsSizeGB.toStringAsFixed(2)} GB',
+                              color: EdgeXTheme.cyanAccent,
+                            ),
+                            const SizedBox(height: 16),
+                            _StorageBar(
+                              label: 'Temporary Cache',
+                              value: '${storage.cacheSizeGB.toStringAsFixed(2)} GB',
+                              color: EdgeXTheme.textSecondary,
+                            ),
+                            const SizedBox(height: 40),
+                            SizedBox(
+                              width: double.infinity,
+                              child: ElevatedButton.icon(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: const Color(0xFFEF4444),
+                                  foregroundColor: Colors.white,
+                                  padding: const EdgeInsets.symmetric(vertical: 16),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                  elevation: 0,
+                                ),
+                                icon: const Icon(Icons.delete_sweep),
+                                label: const Text(
+                                  'Clear Temporary Cache',
+                                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                                ),
+                                onPressed: storage.cacheSizeGB > 0
+                                    ? () {
+                                        HapticFeedback.heavyImpact();
+                                        ref.read(storageProvider.notifier).clearCache();
+                                        _showToast(context, 'Cache Cleared');
+                                      }
+                                    : null,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],

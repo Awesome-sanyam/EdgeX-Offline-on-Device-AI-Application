@@ -257,7 +257,7 @@ class _ChatScreenState extends ConsumerState<ChatScreen> {
                         : ListView.separated(
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             itemCount: sessions.length,
-                            separatorBuilder: (_, __) =>
+                            separatorBuilder: (context, i) =>
                                 Divider(height: 1, indent: 20, endIndent: 20,
                                     color: Colors.white.withValues(alpha: 0.04)),
                             itemBuilder: (context, i) {

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../../core/state/app_providers.dart';
-import '../../../core/state/ai_state_provider.dart';
 import '../../core/theme.dart';
 
 class DashboardScreen extends ConsumerWidget {

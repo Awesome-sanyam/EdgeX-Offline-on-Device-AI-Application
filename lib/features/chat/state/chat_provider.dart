@@ -173,7 +173,7 @@ class ChatNotifier extends Notifier<List<ChatMessage>> {
 
       final dir = await getApplicationDocumentsDirectory();
       final file = File(
-        '\${dir.path}/loc_ai_chat_\${DateTime.now().millisecondsSinceEpoch}.pdf',
+        '${dir.path}/edgex_chat_${DateTime.now().millisecondsSinceEpoch}.pdf',
       );
       await file.writeAsBytes(bytes);
       return file.path;
@@ -257,7 +257,7 @@ class ChatNotifier extends Notifier<List<ChatMessage>> {
       List<Message> historicalMessages = [];
 
       if (attachmentPath == null) {
-        const int maxHistoryChars = 800;
+        const int maxHistoryChars = 3200;
         int currentCharCount = finalPrompt.length;
 
         for (final msg in state.reversed) {
@@ -279,7 +279,9 @@ class ChatNotifier extends Notifier<List<ChatMessage>> {
       final List<Message> memory = [
         Message(
           Role.system,
-          'You are EdgeX. Answer clearly and concisely. Analyze provided text directly.',
+          'You are EdgeX, a powerful private on-device AI assistant. '
+          'You run 100% locally with no internet connection. '
+          'Answer clearly, accurately, and concisely. Format responses with Markdown where appropriate.',
         ),
         ...historicalMessages,
         Message(Role.user, finalPrompt),

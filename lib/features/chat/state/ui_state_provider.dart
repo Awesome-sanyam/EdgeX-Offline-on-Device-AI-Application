@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:path_provider/path_provider.dart';
 import '../../../core/db/local_db.dart';
 import '../../../core/state/tasks_provider.dart';
 import 'chat_provider.dart';
@@ -56,21 +58,53 @@ class StorageState {
   const StorageState(this.totalAppSizeGB, this.modelsSizeGB, this.cacheSizeGB);
 }
 
-class StorageNotifier extends Notifier<StorageState> {
+class StorageNotifier extends AsyncNotifier<StorageState> {
   @override
-  StorageState build() => const StorageState(1.5, 0.35, 1.2);
+  Future<StorageState> build() async => _compute();
 
-  void clearCache() {
-    state = StorageState(
-      state.totalAppSizeGB - state.cacheSizeGB,
-      state.modelsSizeGB,
-      0.0,
-    );
+  Future<StorageState> _compute() async {
+    try {
+      final dir = await getApplicationDocumentsDirectory();
+      final allFiles = dir.listSync();
+
+      double modelBytes = 0;
+      double otherBytes = 0;
+
+      for (final f in allFiles) {
+        if (f is File) {
+          final size = f.lengthSync().toDouble();
+          final name = f.path.toLowerCase();
+          if (name.endsWith('.gguf') || name.endsWith('.bin')) {
+            modelBytes += size;
+          } else {
+            otherBytes += size;
+          }
+        }
+      }
+
+      const double gb = 1024 * 1024 * 1024;
+      return StorageState(
+        (modelBytes + otherBytes) / gb,
+        modelBytes / gb,
+        otherBytes / gb,
+      );
+    } catch (_) {
+      return const StorageState(0, 0, 0);
+    }
+  }
+
+  Future<void> refresh() async {
+    state = const AsyncLoading();
+    state = AsyncData(await _compute());
+  }
+
+  Future<void> clearCache() async {
     ref.read(chatProvider.notifier).clearHistory();
+    state = await AsyncValue.guard(_compute);
   }
 }
 
 final storageProvider =
-    NotifierProvider<StorageNotifier, StorageState>(() => StorageNotifier());
+    AsyncNotifierProvider<StorageNotifier, StorageState>(() => StorageNotifier());
 
 
